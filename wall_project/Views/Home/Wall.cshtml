@@ -1,0 +1,53 @@
+<div style="display: inline-block;">
+    <h1>CodingDojo Wall</h1>
+</div>
+<div style="display: inline-block;">
+    <p style="margin-left: 200px;">Welcome: @ViewBag.firstname["firstname"] &emsp;&emsp;<a href="logout">Logout</a></p>
+</div>
+<p>--------------------------------------------------------------------------------------------------------------------------------</p>
+    <h2>Post a Message:</h2>
+    <form action="add" method="post">
+        <textarea rows="4" cols="80" type="text" name="message"></textarea>
+        <br>
+        <input type="submit" value="Post a Message!">
+    </form>
+
+@{
+    foreach(var message in ViewBag.messages)
+    {
+        <div>
+            <h1 style="color:blue;">Message:</h1>
+            <h3>Author: @message["firstname"] @message["lastname"] - @message["createdat"].ToString("MMMM dd yyyy h:mm tt")</h3>
+            <p>Message: @message["message"]</p>
+            <h2>Post a Comment:</h2>
+            <form action="comment" method="post">
+            <textarea rows="2" cols="50" type="text" name="comment"></textarea>
+            <br>
+            <input type="hidden" name="mess" value="@message["messages_id"]">
+            <input type="submit" value="Post a Comment!">
+            </form>
+            @{
+            if(@message["firstname"] == @ViewBag.firstname["firstname"]){
+                <form action="delete" method="post">
+                <input type="hidden" name="mess" value="@message["messages_id"]">
+                <input type="submit" value="Delete">
+                </form>
+            }
+    }
+            <h2 style="color:red;">Other Comments:</h2>
+            @{
+                foreach(var comment in ViewBag.comments)
+                {
+                    if(comment["messages_id"] == message["messages_id"])
+                    {
+                        <div>
+                            <h3>Author: @comment["firstname"] @comment["lastname"] - @comment["createdat"].ToString("MMMM dd yyyy h:mm tt")</h3>
+                            <p>Comment: @comment["comment"]</p>
+                        </div>
+                    }
+                }
+            }
+            <p>--------------------------------------------------------------------------------------------------------------------------------</p>
+        </div>
+    }
+}

@@ -1,0 +1,11 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+<h1>@ViewBag.Pokemon.Name</h1>
+<h2>Types:</h2>
+@foreach( var type in @ViewBag.Pokemon.Types){
+    <li>@type</li>
+}
+</ul>
+<h2>Height: @ViewBag.Pokemon.Height</h2>
+<h2>Weight: @ViewBag.Pokemon.Weight</h2>
